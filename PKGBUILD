@@ -3,13 +3,13 @@
 _pkgname=libfprint
 pkgname=libfprint-vfs009x-git
 epoch=1
-pkgver=1.90.1.r6.g2978dc0
-pkgrel=2
+pkgver=1.94.5.r0.g99a3d0d
+pkgrel=1
 pkgdesc="Library for fingerprint readers (includes libre vfs0090 and vfs0097 driver)"
 arch=(i686 x86_64)
-url="https://github.com/3v1n0/libfprint"
+url="https://github.com/Shade30/libfprint"
 license=(LGPL)
-depends=(libusb nss pixman gnutls openssl gobject-introspection glib2 libgusb pixman nss openssl)
+depends=(libusb nss pixman gnutls openssl gobject-introspection glib2 libgusb pixman nss openssl-1.1)
 makedepends=(git meson gtk-doc pkgconf usbutils)
 checkdepends=(cairo)
 optdepends=(
@@ -19,16 +19,16 @@ optdepends=(
 )
 groups=(fprint-git)
 provides=(libfprint libfprint-2.so=2-64 libfprint-vfs009x libfprint-vfs0090 libfprint-vfs0097)
-conflicts=(libfprint 'fprintd>=1.92.0')
+conflicts=(libfprint)
 replaces=(libfprint libfprint-vfs009x libfprint-vfs0090 libfprint-vfs0097)
 source=(
-  "git+https://github.com/3v1n0/libfprint.git#branch=vfs0090"
+  "git+https://github.com/Shade30/libfprint.git#branch=vfs0090"
   "0001-VFS0097-Update-vfs0090.h.patch"
   "0001-Do-not-checkout-the-vfs0090-submodule-in-the-meson-s.patch"
 )
 md5sums=('SKIP'
          '5a8e609f8cbdaef0f7bd0004924da503'
-         '3bdea2947f9901c30b53e0566be8e6a4')
+         'b2f6ab94e50b7a54e4f946adeac99f2e')
 
 
 prepare() {
@@ -67,7 +67,7 @@ pkgver() {
 
 build() {
   cd "$srcdir"
-  arch-meson $_pkgname build -D x11-examples=false -D doc=false -D udev_rules_dir=/usr/lib/udev/rules.d
+  arch-meson $_pkgname build -D doc=false -D udev_rules_dir=/usr/lib/udev/rules.d
   ninja -C build
 }
 
